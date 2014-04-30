@@ -56,10 +56,6 @@ __device__ int getIndex(int x,int y){
 
 
 __global__ void blur(unsigned char *ptr){
-	// POUR UN BLOC DE 16x16
-	//ptr[0]
-	// saut de ligne tous les 800 (DIM)
-	// correspond au gridDim.x
 
 	int x = blockIdx.x;
 	int y = blockIdx.y;
@@ -68,7 +64,7 @@ __global__ void blur(unsigned char *ptr){
 	int cpt = 0;
 
 	
-	//on récupère l'index et la couleur pour chaque block de pixel
+	//on rï¿½cupï¿½re l'index et la couleur pour chaque block de pixel
 	for (int i = -4; i<5;i++){
 		for (int j = -4; j<5; j++){
 			if(i+x >= 0 && j+y >= 0 && x+i < DIM && y+j < DIM){
@@ -84,7 +80,7 @@ __global__ void blur(unsigned char *ptr){
 	//synchro des threads 
 	 __syncthreads();
 
-    //on réécrit les couleurs
+    //on rï¿½ï¿½crit les couleurs
 	int index = getIndex(x,y);
 	ptr[index] = (moyenneCouleur[0] / cpt);
 	ptr[index+1] = (moyenneCouleur[1] / cpt);
